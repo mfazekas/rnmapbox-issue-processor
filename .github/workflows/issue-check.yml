@@ -34,7 +34,12 @@ jobs:
       - name: check-issue-example
         run: |
           echo $HELLO
+          echo $CHANGES
+          echo $ISSUE_ID
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HELO: "HELLO42"
+          ISSUE: ${{ github.event.issue }}
+          CHANGES: ${{ github.evnet.changes }}
+          ISSUE_ID: ${{ github.event.issue.id }}
 
