@@ -40,6 +40,6 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HELO: "HELLO42"
           ISSUE: ${{ toJson(github.event.issue) }}
-          CHANGES: ${{ github.event.changes }}
+          CHANGES: ${{ toJson(github.event.changes) }}
           ISSUE_ID: ${{ github.event.issue.id }}
 
