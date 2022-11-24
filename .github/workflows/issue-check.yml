@@ -39,7 +39,7 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HELO: "HELLO42"
-          ISSUE: ${{ github.event.issue }}
-          CHANGES: ${{ github.evnet.changes }}
+          ISSUE: ${{ toJson(github.event.issue) }}
+          CHANGES: ${{ github.event.changes }}
           ISSUE_ID: ${{ github.event.issue.id }}
 
