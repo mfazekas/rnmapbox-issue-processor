@@ -34,7 +34,21 @@ jobs:
         run: |
           echo "Issue title: ${{ github.event.issue.title }}"
           echo "Issue body: ${{ github.event.issue.body }}"
-      
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: run validate.js
+        run: |
+          pwd
+          npm install
+          node validate.js ${{ github.event.issue.title }} ${{ github.event.issue.body }}
+        working-directory: ./lint-example
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # Runs a set of:
       - name: check-issue-example
         run: |

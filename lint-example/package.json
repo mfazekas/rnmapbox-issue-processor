@@ -1,0 +1,21 @@
+{
+  "name": "lint-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "eslint-plugin-react": "^7.32.2",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "eslint": "^8.40.0",
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1"
+  }
+}
