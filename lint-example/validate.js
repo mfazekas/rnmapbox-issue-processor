@@ -41,17 +41,53 @@ function getCode() {
 
 async function postComment(issueNumber, message) {
   const token = core.getInput('repo-token') || process.env.GITHUB_TOKEN;
-  // log token length
-  console.log("token length: " + token.length);
-  // log token value with asterisks
-  console.log("token value: " + token.replace(/./g, '*'));
   const octokit = github.getOctokit(token);
-  await octokit.rest.issues.createComment({
-    issue_number: issueNumber,
+
+  const marker = "<!-- lint-action -->";
+  const prelude = "## Lint failed :sob:\n\nPlease fix the lint errors in your code example:\n\n";
+
+
+  const context = {
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
-    body: message
+  };
+  // remove old comment from previous runs
+  const { data: comments } = await octokit.rest.issues.listComments({
+    issue_number: issueNumber,
+    ...context
   });
+  const comment = comments.find(comment => comment.user.login === 'github-actions[bot]' && comment.body.startsWith(marker));
+  if (comment) {
+    console.log("=> removing old comment");
+    await octokit.rest.issues.deleteComment({
+      comment_id: comment.id,
+      ...context
+    }); 
+  }
+
+  // if lint fails label the issue with "lint-failed"
+  if (message.includes('error')) {
+    console.log("fail => adding comment and label");
+    // post new comment
+    await octokit.rest.issues.createComment({
+      issue_number: issueNumber,
+      body: marker + "\n" + prelude + message,
+      ...context
+    });
+
+    await octokit.rest.issues.addLabels({
+      issue_number: issueNumber,
+      labels: ['lint-failed'],
+      ...context
+    });
+  } else {
+    console.log("success => removing old label");
+    await octokit.rest.issues.removeLabel({
+      issue_number: issueNumber,
+      name: 'lint-failed',
+      ...context
+  });
+  }
 }
 
 // log program arguments to console

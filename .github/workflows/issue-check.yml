@@ -20,21 +20,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-  
-      - name: View issue information
-        run: |
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${{ github.event.issue.body }}"
-
       - name: setup node
         uses: actions/setup-node@v1
         with:
@@ -44,21 +29,9 @@ jobs:
         run: |
           pwd
           npm install
-          node validate.js ${{ github.event.issue.title }} ${{ github.event.issue.body }}
+          node validate.js
         working-directory: ./lint-example
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Runs a set of:
-      - name: check-issue-example
-        run: |
-          echo $HELLO
-          echo $CHANGES
-          echo $ISSUE_ID
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HELO: "HELLO42"
-          ISSUE: ${{ toJson(github.event.issue) }}
-          CHANGES: ${{ toJson(github.event.changes) }}
-          ISSUE_ID: ${{ github.event.issue.id }}
 

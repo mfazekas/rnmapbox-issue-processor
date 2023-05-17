@@ -1,3 +1,4 @@
+
 module.exports = {
     "env": {
         "browser": true,
@@ -10,9 +11,17 @@ module.exports = {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "settings": {
+        "react": {
+            "version": "17.0.2"
+        }
+    },
     "plugins": [
-        "react"
+        "react",
+        "eslint-plugin-import",
     ],
     "rules": {
+        "import/prefer-default-export": ["error", {"target":"any"}],
+        "no-undef": "error",
     }
 }
