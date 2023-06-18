@@ -20,9 +20,9 @@ const Config = {
   /// whether to close the issue if no code example is found
   closeIssueIfNoCodeExample: false,
   /// whether to close the issue when lint fails
-  closeIssue: false,
+  closeIssue: true,
   /// whether to reopen the issue when lint passes
-  reopenIssue: false,
+  reopenIssue: true,
   /// eslint formatter to use (stylish or codeframe is recommended)
   formatter: 'codeframe',
   closeLabel: 'reopen-on-code-fixed',
