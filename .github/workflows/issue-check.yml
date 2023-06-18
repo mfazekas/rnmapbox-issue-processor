@@ -29,7 +29,7 @@ jobs:
         run: |
           pwd
           npm install
-          node validate.js
+          node lint-code-example-in-issues.js
         working-directory: ./lint-example
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
