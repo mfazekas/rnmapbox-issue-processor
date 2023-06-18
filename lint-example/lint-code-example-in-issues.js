@@ -186,7 +186,7 @@ async function processGithubIssue(
     commentMarker,
     label,
     commentPrelude,
-    closeIsse,
+    closeIssue,
     reopenIssue,
     closeLabel,
     noCodeExampleComment,
@@ -242,7 +242,7 @@ async function processGithubIssue(
       ...context,
     });
 
-    if (closeIsse) {
+    if (closeIssue) {
       await octokit.rest.issues.update({
         issue_number: issueNumber,
         state: 'closed',
